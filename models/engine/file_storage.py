@@ -55,6 +55,6 @@ class FileStorage:
             try:
                 key = '{}.{}'.format(obj.__class__.__name__, obj.id)
                 if key in FileStorage.__objects.keys():
-                    del self.__objects[key]
+                    FileStorage.__objects.pop(key)
             except AttributeError:
                 pass
