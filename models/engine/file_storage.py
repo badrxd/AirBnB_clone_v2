@@ -54,7 +54,7 @@ class FileStorage:
         if obj is not None:
             try:
                 key = '{}.{}'.format(obj.__class__.__name__, obj.id)
-                if key in FileStorage.__objects:
+                if key in FileStorage.__objects.keys():
                     del self.__objects[key]
             except AttributeError:
                 pass
