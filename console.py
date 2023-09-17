@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """ Console Module """
+import re
 import cmd
 import sys
 from models.base_model import BaseModel
@@ -73,7 +74,7 @@ class HBNBCommand(cmd.Cmd):
                 pline = pline[2].strip()  # pline is now str
                 if pline:
                     # check for *args or **kwargs
-                    if pline[0] is '{' and pline[-1] is'}'\
+                    if pline[0] is '{' and pline[-1] is '}'\
                             and type(eval(pline)) is dict:
                         _args = pline
                     else:
@@ -115,14 +116,33 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
+        params = args.split(" ")
+        srt_reg = r'(([a-zA-Z_]*)=("[a-zA-Z0-9_\"]*"))'
+        flt_reg = r'(([a-zA-Z_]*)=([-+]?[0-9]+\.[0-9]+))'
+        int_reg = r'(([a-zA-Z_]*)=([-+]?\d+))'
+        obj = {}
         if not args:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+        elif params[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[args]()
-        storage.save()
+        if len(params) > 1:
+            for i in range(1, len(params)):
+                cheack_str = re.match(srt_reg, params[i])
+                cheack_flt = re.match(flt_reg, params[i])
+                cheack_int = re.match(int_reg, params[i])
+                if cheack_str:
+                    obj[cheack_str.group(2)] = cheack_str.group(
+                        3)[1:-1].replace('"', '').replace('_', ' ')
+                if cheack_flt:
+                    obj[cheack_flt.group(2)] = float(cheack_flt.group(3))
+                    continue
+                if cheack_int:
+                    obj[cheack_int.group(2)] = int(cheack_int.group(3))
+        new_instance = HBNBCommand.classes[params[0]]()
+        for key, value in obj.items():
+            setattr(new_instance, key, value)
         print(new_instance.id)
         storage.save()
 
@@ -319,6 +339,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
