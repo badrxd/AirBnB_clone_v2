@@ -133,13 +133,13 @@ class HBNBCommand(cmd.Cmd):
                 cheack_flt = re.match(flt_reg, params[i])
                 cheack_int = re.match(int_reg, params[i])
                 # int_reg = re.match(int_reg,params[i])
-                if cheack_str:
+                if cheack_str is not None:
                     obj[cheack_str.group(2)] = cheack_str.group(
                         3)[1:-1].replace('_', ' ')
-                if cheack_flt:
+                if cheack_flt is not None:
                     obj[cheack_flt.group(2)] = float(cheack_flt.group(3))
                     continue
-                if cheack_int:
+                if cheack_int is not None:
                     obj[cheack_int.group(2)] = int(cheack_int.group(3))
         new_instance = HBNBCommand.classes[params[0]]()
         for key, value in obj.items():
