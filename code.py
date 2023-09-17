@@ -117,7 +117,7 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, args):
         """ Create an object of any class"""
         params = args.split(" ")
-        srt_reg = r'(([a-zA-Z_]*)=("[a-zA-Z0-9_\"]*"))'
+        srt_reg = r'(([a-zA-Z_]*)=("([^"]|\")*"))'
         flt_reg = r'(([a-zA-Z_]*)=([-+]?[0-9]+\.[0-9]+))'
         int_reg = r'(([a-zA-Z_]*)=([-+]?\d+))'
         obj = {}
@@ -132,14 +132,13 @@ class HBNBCommand(cmd.Cmd):
                 cheack_str = re.match(srt_reg, params[i])
                 cheack_flt = re.match(flt_reg, params[i])
                 cheack_int = re.match(int_reg, params[i])
-                # int_reg = re.match(int_reg,params[i])
-                if cheack_str:
+                if cheack_str is not None:
                     obj[cheack_str.group(2)] = cheack_str.group(
-                        3)[1:-1].replace('"', '').replace('_', ' ')
-                if cheack_flt:
+                        3)[1:-1].replace('_', ' ').strip()
+                if cheack_flt is not None:
                     obj[cheack_flt.group(2)] = float(cheack_flt.group(3))
                     continue
-                if cheack_int:
+                if cheack_int is not None:
                     obj[cheack_int.group(2)] = int(cheack_int.group(3))
         new_instance = HBNBCommand.classes[params[0]]()
         for key, value in obj.items():
