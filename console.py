@@ -135,7 +135,7 @@ class HBNBCommand(cmd.Cmd):
                 # int_reg = re.match(int_reg,params[i])
                 if cheack_str:
                     obj[cheack_str.group(2)] = cheack_str.group(
-                        3)[1:-1].replace('"', '').replace('_', ' ')
+                        3)[1:-1].replace('_', ' ')
                 if cheack_flt:
                     obj[cheack_flt.group(2)] = float(cheack_flt.group(3))
                     continue
