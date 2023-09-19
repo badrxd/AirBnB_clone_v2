@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """ Console Module """
+
 import re
 import cmd
 import sys
@@ -11,6 +12,9 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
+import os
+import uuid
+from datetime import datetime
 
 
 class HBNBCommand(cmd.Cmd):
@@ -140,11 +144,23 @@ class HBNBCommand(cmd.Cmd):
                     continue
                 if cheack_int is not None:
                     obj[cheack_int.group(2)] = int(cheack_int.group(3))
-        new_instance = HBNBCommand.classes[params[0]]()
-        for key, value in obj.items():
-            setattr(new_instance, key, value)
-        print(new_instance.id)
-        storage.save()
+
+        if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+            if not hasattr(obj, 'id'):
+                obj['id'] = str(uuid.uuid4())
+            if not hasattr(obj, 'created_at'):
+                obj['created_at'] = str(datetime.now())
+            if not hasattr(obj, 'updated_at'):
+                obj['updated_at'] = str(datetime.now())
+            new_instance = HBNBCommand.classes[params[0]](**obj)
+            new_instance.save()
+            print(new_instance.id)
+        else:
+            new_instance = HBNBCommand.classes[params[0]]()
+            for key, value in obj.items():
+                setattr(new_instance, key, value)
+            print(new_instance.id)
+            storage.save()
 
     def help_create(self):
         """ Help information for the create method """
