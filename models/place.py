@@ -24,3 +24,13 @@ class Place(BaseModel, Base):
         cascade="all, delete, delete-orphan",
         backref='place'
     )
+
+        @property
+        def reviews(self):
+            """Returns the reviews of Place"""
+            from models import storage
+            reviews = []
+            for value in storage.all(Review).values():
+                if value.place_id == self.id:
+                    reviews.append(value)
+            return reviews
