@@ -42,14 +42,19 @@ def do_deploy(archive_path):
 @task
 def do_pack():
     """ create .tgz archive """
-    local("mkdir -p versions")
-    date = time.strftime('%Y%m%d%H%M%S')
-    fileName = "versions/web_static_{}.tgz".format(date)
-    local("tar -cvzf {} web_static".format(fileName))
-    return fileName
+    try:
+        local("mkdir -p versions")
+        date = time.strftime('%Y%m%d%H%M%S')
+        fileName = "versions/web_static_{}.tgz".format(date)
+        local("tar -cvzf {} web_static".format(fileName))
+        return fileName
+    except Exception:
+        return False
 
 
 @task
 def deploy():
     file = do_pack()
-    do_deploy(file)
+    if file is False:
+        return False
+    return do_deploy(file)
