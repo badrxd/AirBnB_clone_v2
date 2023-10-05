@@ -11,6 +11,7 @@ import time
 
 env.hosts = ['54.210.121.255', '18.204.20.153']
 
+
 @task
 def do_deploy(archive_path):
     """do_deploy function """
@@ -46,6 +47,7 @@ def do_pack():
     fileName = "versions/web_static_{}.tgz".format(date)
     local("tar -cvzf {} web_static".format(fileName))
     return fileName
+
 
 @task
 def deploy():
