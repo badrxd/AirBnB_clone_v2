@@ -4,12 +4,12 @@ that distributes an archive to your web servers, using the function
 do_deploy:
 """
 
-from fabric.api import env, put, run
-from fabric.decorators import task
+from fabric.api import *
+from fabric.decorators import task, runs_once
 from os.path import exists
+import time
 
 env.hosts = ['54.210.121.255', '18.204.20.153']
-
 
 @task
 def do_deploy(archive_path):
@@ -37,8 +37,17 @@ def do_deploy(archive_path):
         return False
 
 
+@runs_once
 @task
 def do_pack():
     """ create .tgz archive """
-    local("mkdir -p versions ; tar -cvzf \
-versions/web_static_$(date +%Y%m%d%H%M%S).tgz web_static/")
+    local("mkdir -p versions")
+    date = time.strftime('%Y%m%d%H%M%S')
+    fileName = "versions/web_static_{}.tgz".format(date)
+    local("tar -cvzf {} web_static".format(fileName))
+    return fileName
+
+@task
+def deploy():
+    file = do_pack()
+    do_deploy(file)
