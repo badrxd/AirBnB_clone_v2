@@ -54,6 +54,7 @@ def do_pack():
 
 @task
 def deploy():
+    """deploy"""
     file = do_pack()
     if file is False:
         return False
