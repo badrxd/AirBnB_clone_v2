@@ -7,7 +7,7 @@ from fabric.api import env, put, run, local
 from fabric.decorators import task
 from os.path import exists
 
-env.hosts = ['54.210.121.255']
+env.hosts = ['54.210.121.255, 18.204.20.153']
 
 
 @task
@@ -17,9 +17,9 @@ def do_clean(number=0):
     num = 1
     if int(number) != 0:
         num = int(number)
-    local("ls -td ./versions/* | head -n -{} \
+    local("ls -d1tv ./versions/* | head -n -{} \
             | xargs rm -rf".format(num))
-    run("ls -td /data/web_static/releases/* | head -n -{}\
+    run("ls -d1tv /data/web_static/releases/* | head -n -{}\
 | xargs rm -rf".format(num))
 
 
