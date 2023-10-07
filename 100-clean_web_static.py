@@ -17,7 +17,7 @@ def do_clean(number=0):
     num = 1
     if int(number) != 0:
         numb = int(number)
-    local("ls -1tv ./versions/* | head -n -{} \
+    local("ls -d1tv ./versions/* | head -n -{} \
             | xargs rm -rf".format(num))
     run("ls -1tv /data/web_static/releases/* | head -n -{}\
 | xargs rm -rf".format(num))
