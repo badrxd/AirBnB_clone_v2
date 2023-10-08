@@ -17,9 +17,9 @@ def do_clean(number=0):
     num = 1
     if int(number) != 0:
         num = int(number)
-    local("ls -d1tv ./versions/* | head -n -{} \
-            | xargs rm -rf".format(num))
-    run("ls -d1tv /data/web_static/releases/* | head -n -{}\
+    local("ls -dt ./versions/* | head -n -{} \
+| xargs rm -rf".format(num))
+    run("ls -dt /data/web_static/releases/* | head -n -{}\
 | xargs rm -rf".format(num))
 
 
