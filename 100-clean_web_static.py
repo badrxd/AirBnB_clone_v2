@@ -12,15 +12,13 @@ env.hosts = ['54.210.121.255', '18.204.20.153']
 
 @task
 def do_clean(number=0):
-    """deletes out-of-date archives"""
-
-    num = 1
+    """formats input and cleans remote"""
+    n = 1
     if int(number) != 0:
-        num = int(number)
-    local("ls -dt ./versions/* | head -n -{} \
-| xargs rm -rf".format(num))
-    run("ls -dt /data/web_static/releases/* | head -n -{}\
-| xargs rm -rf".format(num))
+        n = int(number)
+    pth = "/data/web_static/releases/*"
+    local("ls -dt ./versions/* | head -n -{} | xargs rm -fr".format(n))
+    run("ls -dt {} | head -n -{} | xargs rm -fr".format(pth, n))
 
 
 @task
