@@ -22,12 +22,12 @@ def hello_world_3(text):
 @app.route("/python/", strict_slashes=False)
 @app.route("/python/<text>", strict_slashes=False)
 def hello_world_4(text='is cool'):
-    return "C {}".format(text.replace("_", " "))
+    return "Python {}".format(text.replace("_", " "))
 
 
 @app.route("/number/<int:n>", strict_slashes=False)
 def hello_world_5(n):
-    return "C {}".format(n)
+    return "{} is a number".format(n)
 
 
 @app.route("/number_template/<int:n>", strict_slashes=False)
