@@ -27,7 +27,7 @@ def hello_world_4(text='is cool'):
 
 @app.route("/number/<int:n>", strict_slashes=False)
 def hello_world_5(n):
-    return "C {}".format(n)
+    return "{} is a number".format(n)
 
 
 if __name__ == "__main__":
