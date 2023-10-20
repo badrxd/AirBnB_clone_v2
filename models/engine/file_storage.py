@@ -16,7 +16,7 @@ class FileStorage:
             class_objects = {}
             for key, value in FileStorage.__objects.items():
                 if type(value) is cls:
-                    class_objects[key] = FileStorage.__objects[key]
+                    class_objects[key] = value
             return class_objects
 
     def new(self, obj):
@@ -43,10 +43,10 @@ class FileStorage:
         from models.review import Review
 
         classes = {
-                    'BaseModel': BaseModel, 'User': User, 'Place': Place,
-                    'State': State, 'City': City, 'Amenity': Amenity,
-                    'Review': Review
-                  }
+            'BaseModel': BaseModel, 'User': User, 'Place': Place,
+            'State': State, 'City': City, 'Amenity': Amenity,
+            'Review': Review
+        }
         try:
             temp = {}
             with open(FileStorage.__file_path, 'r') as f:
