@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""cript that starts a Flask web application"""
+"""cript that starts a Flask web application """
 from flask import Flask
 app = Flask(__name__)
 
