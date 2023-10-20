@@ -36,7 +36,7 @@ def hello_world_6(n):
 
 
 @app.route("/number_odd_or_even/<int:n>", strict_slashes=False)
-def hello_world_6(n):
+def hello_world_7(n):
     text = 'odd'
     if n % 2 == 0:
         text = 'even'
