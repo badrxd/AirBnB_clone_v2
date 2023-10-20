@@ -65,3 +65,7 @@ class FileStorage:
                     FileStorage.__objects.pop(key)
             except AttributeError:
                 pass
+
+    def close(self):
+        """call reload() methode """
+        self.reload()
