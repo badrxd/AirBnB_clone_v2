@@ -40,7 +40,7 @@ def hello_world_7(n):
     text = 'odd'
     if n % 2 == 0:
         text = 'even'
-    return render_template('6-number_odd_or_even.html', text=text)
+    return render_template('6-number_odd_or_even.html', n=n, text=text)
 
 
 if __name__ == "__main__":
