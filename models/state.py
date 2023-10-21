@@ -22,10 +22,14 @@ class State(BaseModel, Base):
 
         @property
         def cities(self):
-            """Returns the cities"""
             from models import storage
-            city_list = []
-            for key, value in storage.all(City).items():
-                if self.id == value.state_id:
-                    city_list.append(value)
-            return city_list
+            file_cities = storage.all(City).values()
+            return [city for city in file_cities if city.state_id == self.id]
+        # def cities(self):
+        #     """Returns the cities"""
+        #     from models import storage
+        #     city_list = []
+        #     for key, value in storage.all(City).items():
+        #         if self.id == value.state_id:
+        #             city_list.append(value)
+        #     return city_list
