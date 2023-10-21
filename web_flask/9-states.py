@@ -16,7 +16,7 @@ def hello_world():
 @app.route("/states/<id>", strict_slashes=False)
 def hello_world_2(id):
     states = storage.all(State)
-    cities = ()
+    cities = False
     state = ""
     for key, value in states.items():
         if value.id == id:
