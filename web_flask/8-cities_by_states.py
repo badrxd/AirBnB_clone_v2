@@ -15,7 +15,6 @@ def hello_world():
 
 @app.teardown_appcontext
 def teardown_request(error):
-    print(error)
     storage.close()
 
 
