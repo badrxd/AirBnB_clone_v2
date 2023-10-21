@@ -23,7 +23,8 @@ def hello_world_2(id):
             cities = states[key].cities
             state = states[key].name
             break
-    return render_template('9-states.html', state=state, cities=cities, id=True)
+    return render_template('9-states.html', state=state,
+                           cities=cities, id=True)
     # return ("render")
 
 
