@@ -4,16 +4,20 @@ from flask import Flask, render_template
 from models import storage
 from models.state import State
 from models.amenity import Amenity
+from models.place import Place
+from models.user import User
 
 app = Flask(__name__)
 
 
-@app.route("/hbnb_filters", strict_slashes=False)
+@app.route("/hbnb", strict_slashes=False)
 def hello_world():
     states = storage.all(State)
     amenity = storage.all(Amenity)
-    return render_template('10-hbnb_filters.html', states=states,
-                           amenity=amenity)
+    places = storage.all(Place)
+    users = storage.all(User)
+    return render_template('100-hbnb.html', states=states,
+                           amenity=amenity, places=places, users=users)
 
 
 @app.teardown_appcontext
