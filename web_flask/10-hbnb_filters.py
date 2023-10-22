@@ -10,6 +10,7 @@ app = Flask(__name__)
 
 @app.route("/hbnb_filters", strict_slashes=False)
 def hello_world():
+    """"/hbnb: display a HTML page 10-hbnb_filters.html """
     states = storage.all(State)
     amenity = storage.all(Amenity)
     return render_template('10-hbnb_filters.html', states=states,
@@ -18,6 +19,7 @@ def hello_world():
 
 @app.teardown_appcontext
 def teardown_request(error):
+    """remove the current SQLAlchemy Session after each request"""
     storage.close()
 
 
