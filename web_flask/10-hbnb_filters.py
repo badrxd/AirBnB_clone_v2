@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""cript that starts a Flask web application"""
+"""script that starts a Flask web application"""
 from flask import Flask, render_template
 from models import storage
 from models.state import State
@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 @app.route("/hbnb_filters", strict_slashes=False)
 def hello_world():
-    """"/hbnb: display a HTML page 10-hbnb_filters.html """
+    """"/hbnb_filters: display a HTML page 10-hbnb_filters.html"""
     states = storage.all(State)
     amenity = storage.all(Amenity)
     return render_template('10-hbnb_filters.html', states=states,

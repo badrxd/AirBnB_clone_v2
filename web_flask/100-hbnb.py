@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""cript that starts a Flask web application"""
+"""script that starts a Flask web application"""
 from flask import Flask, render_template
 from models import storage
 from models.state import State
@@ -12,6 +12,7 @@ app = Flask(__name__)
 
 @app.route("/hbnb", strict_slashes=False)
 def hello_world():
+    """"/hbnb: display a HTML page 100-hbnb.html"""
     states = storage.all(State)
     amenity = storage.all(Amenity)
     places = storage.all(Place)
@@ -22,6 +23,7 @@ def hello_world():
 
 @app.teardown_appcontext
 def teardown_request(error):
+    """remove the current SQLAlchemy Session after each request"""
     storage.close()
 
 
